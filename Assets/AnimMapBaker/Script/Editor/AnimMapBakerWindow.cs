@@ -1,36 +1,25 @@
 ﻿/*
- * Created by jiadong chen
  * http://www.chenjd.me
  */
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-public class AnimMapBakerWindow : EditorWindow {
-
+public class AnimMapBakerWindow : EditorWindow 
+{
     private enum SaveStrategy
     {
         AnimMap,//only anim map
         Mat,//with shader
         Prefab//prefab with mat
     }
-
-    #region 字段
-
-    public static GameObject targetGo;
+    private static GameObject targetGo;
     private static AnimMapBaker baker;
     private static string path = "DefaultPath";
     private static string subPath = "SubPath";
     private static SaveStrategy stratege = SaveStrategy.AnimMap;
     private static Shader animMapShader;
-
-    #endregion
-
-
-    #region  方法
-
     [MenuItem("Window/AnimMapBaker")]
     public static void ShowWindow()
     {
@@ -142,15 +131,12 @@ public class AnimMapBakerWindow : EditorWindow {
             EditorUtility.DisplayDialog("err", "mat is null!!", "OK");
             return;
         }
-
         GameObject go = new GameObject();
         go.AddComponent<MeshRenderer>().sharedMaterial = mat;
         go.AddComponent<MeshFilter>().sharedMesh = targetGo.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh;
-
         string folderPath = CreateFolder();
         PrefabUtility.CreatePrefab(Path.Combine(folderPath, data.name + ".prefab").Replace("\\", "/"), go);
     }
-
     private string CreateFolder()
     {
         string folderPath = Path.Combine("Assets/" + path,  subPath);
@@ -160,8 +146,4 @@ public class AnimMapBakerWindow : EditorWindow {
         }
         return folderPath;
     }
-
-    #endregion
-
-
 }
