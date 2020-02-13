@@ -3,10 +3,6 @@
 [AddComponentMenu("Dynamic Bone/Dynamic Bone Plane Collider")]
 public class DynamicBonePlaneCollider : DynamicBoneColliderBase
 {
-    void OnValidate()
-    {
-    }
-
     public override void Collide(ref Vector3 particlePosition, float particleRadius)
     {
         Vector3 normal = Vector3.up;
